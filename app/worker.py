@@ -1,13 +1,12 @@
 import os
+import random
 import socket
 import time
-import random
 from datetime import UTC, datetime, timedelta
 
 #from sqlalchemy import func
 from app.database import SessionLocal
 from app.models import Job, JobStatus
-
 
 WORKER_ID = f"{socket.gethostname()}-{os.getpid()}"
 LOCK_TIMEOUT_SECONDS = 60  

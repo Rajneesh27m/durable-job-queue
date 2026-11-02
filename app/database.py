@@ -3,7 +3,6 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-
 DATABASE_URL = os.getenv(
     "DATABASE_URL", 
     "postgresql+psycopg2://queue_user:queue_password@db:5432/job_queue"
