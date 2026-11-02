@@ -1,0 +1,19 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "BLE", "RUF"]
+ignore = [
+    "EXE002",  # Windows file permission issue
+    "B008",    # FastAPI Depends() injection in route definitions
+    "BLE001",  # Worker background loop generic exception catch
+    "E501",    # Line length check (comments and query chains)
+    "UP042",   # Keep standard str enum inheritance for SQLAlchemy compatibility
+]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = false

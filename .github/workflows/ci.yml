@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Start Containers
+        run: docker compose up -d --build
+
+      - name: Wait for database to be ready
+        run: sleep 5
+
+      - name: Run Ruff (Linting)
+        run: docker compose exec -T web ruff check .
+
+      - name: Run Mypy (Type Checking)
+        run: docker compose exec -T web mypy app
+
+      - name: Run Tests (Pytest)
+        run: docker compose exec -T web pytest
+
+      - name: Tear down Containers
+        if: always()
+        run: docker compose down -v
